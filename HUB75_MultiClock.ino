@@ -4,10 +4,13 @@
 #include <WiFi.h>
 #include "Secret.h"
 #include "fontclock.h"
-#include "Matrix_Config_GM.h" 
+#include "Matrix_Config_GM.h"
+#include "test8x8reduced.h"
+#include "font5x5.h"
 
 #define MYTIMEZONE "Europe/London"
 #define clear() matrix.fillScreen(myBLACK)
+
 //#define show() matrix.show()
 #define WIDTH 64
 #define HEIGHT 64
@@ -90,6 +93,14 @@ void setup()
     matrix.fillScreen(myBLACK);
     randomSeed(millis());
     displayMode = random(4);
+    
+    // Setup for Slots
+
+    pinMode(Bet_up, INPUT_PULLUP);
+    pinMode(Bet_down, INPUT_PULLUP);
+    pinMode(Play_button, INPUT_PULLUP);
+    attachInterrupt(digitalPinToInterrupt(COINPIN), coinInterrupt, RISING);
+    randomSeed(millis());
 }
 
 void readtime()
