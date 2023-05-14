@@ -14,7 +14,7 @@ uint16_t MyColor[92] = {0xF800, 0xF880, 0xF900, 0xF980, 0xFA20, 0xFAA0, 0xFB20, 
 
 void AnalogClock()
 {
-    clear();
+    matrix.clear();
     readtime();
     co0 = random(0, 91);
     if (NewRTCm != MinuteInt)

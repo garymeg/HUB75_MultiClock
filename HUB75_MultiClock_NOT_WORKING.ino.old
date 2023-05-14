@@ -148,7 +148,7 @@ void readtime()
 
 void AnalogClock()
 {
-    clear();
+    matrix.clear();
     readtime();
     drawclockBDot();
     drawclockDot();

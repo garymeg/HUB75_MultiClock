@@ -3,5 +3,5 @@
     "board": "rp2040:rp2040:rpipicow",
     "output": "./build",
     "sketch": "HUB75_MultiClock.ino",
-    "port": "COM3"
+    "port": "COM4"
 }
