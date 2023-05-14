@@ -165,7 +165,8 @@ uint16_t SlotsLoop(String Player, uint16_t Points, uint16_t  stake)
         //leave game on screen for a few seconds
         delay(10000);
         firstRun = 0;
-        return Points;
+        //return Points;
+        return win;
     }
 
 void spin(byte spins, byte number_spins, bool spin_for_scatters)

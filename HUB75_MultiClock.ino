@@ -8,6 +8,11 @@
 #include "test8x8reduced.h"
 #include "font5x5.h"
 
+// OldSkoolCoder Additions
+#include <WebServer.h>
+#include "HTMLPage.h"
+#include <IRCClient.h>
+
 #define MYTIMEZONE "Europe/London"
 // Definitions for buttons
 #define Bet_up 18
@@ -45,6 +50,17 @@ uint8_t SecondInt, MinuteInt, HourInt;
 uint8_t NewRTCm = 60;
 int Tz = 1; // Time Zone
 
+// OldSkoolCoder Addition
+WebServer server(80);
+String Player = "";
+int PlayerPoints = 0;
+uint16_t PlayerBet = 0;
+
+#define IRC_SERVER   "irc.chat.twitch.tv"
+#define IRC_PORT     6667
+WiFiClient wiFiClient;
+IRCClient client(IRC_SERVER, IRC_PORT, wiFiClient);
+String ircChannel = "";
 
 unsigned long lastTime = millis();
 unsigned long LoopTime = millis();
@@ -103,8 +119,12 @@ void setup()
 
     matrix.fillScreen(myBLACK);
     randomSeed(millis());
-    displayMode = random(4);
-    
+    displayMode = 0; //random(4);
+
+    handleServer();
+
+    ircChannel = "#" + Twitch_channel;
+    client.setCallback(callback);
 }
 
 void readtime()
@@ -129,14 +149,14 @@ void readtime()
 
 void loop()
 {
-    if (LoopTime + DisplayTime <=millis())
-    {
-        displayMode += 1;
-        lastDisplayedTime = " ";
-        if (displayMode > 3)
-            displayMode = 0;
-        LoopTime = millis();
-    }
+    // if (LoopTime + DisplayTime <=millis())
+    // {
+    //     displayMode += 1;
+    //     lastDisplayedTime = " ";
+    //     if (displayMode > 3)
+    //         displayMode = 0;
+    //     LoopTime = millis();
+    // }
     // lock display for testing
     //displayMode = 3;
     
@@ -153,15 +173,27 @@ void loop()
         break;
     case 3:
         // Tempory variables to use in game
-        int r = random(5);
-        String Player = user[r];
-        int Point = points[r];
-        uint16_t Bet = random(100)*10;
-        
-        int newPoints = SlotsLoop(Player, Point, Bet);
-        points[r] = newPoints;
-        displayMode = 2;
+        // int r = random(5);
+        // String Player = user[r];
+        // int Point = points[r];
+        // uint16_t Bet = random(100)*10;
 
+        int newPoints = SlotsLoop(Player, PlayerPoints, PlayerBet);
+        //points[r] = newPoints;
+
+        if (newPoints != 0)
+        {
+          // Generic BOT Command.
+          sendTwitchMessage("!addpoints " + Player + " " + newPoints);
+
+          // OSK Bot Command.
+          //sendTwitchMessage("!addosk " + Player + " " + newPoints);
+        }
+        displayMode = 0;
         break;
     }
+
+    server.handleClient();
+
+    twitchLoop();
 }

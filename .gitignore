@@ -1,4 +1,4 @@
-build/*
+build/.last-used
 build/boot2.o
 build/build.options.json
 build/compile_commands.json
@@ -2481,3 +2481,18 @@ Libraries/ezTime/src/lang/ES
 Libraries/ezTime/src/lang/FR
 Libraries/ezTime/src/lang/NL
 Secret.h
+build/libraries/ArduinoIRC/IRCClient.cpp.d
+build/libraries/ArduinoIRC/IRCClient.cpp.o
+build/libraries/WebServer/HTTPServer.cpp.d
+build/libraries/WebServer/HTTPServer.cpp.o
+build/libraries/WebServer/Parsing.cpp.d
+build/libraries/WebServer/Parsing.cpp.o
+build/libraries/WebServer/WebServer.a
+build/libraries/WebServer/detail/mimetable.cpp.d
+build/libraries/WebServer/detail/mimetable.cpp.o
+build/libraries/http-parser/http_parser.c.d
+build/libraries/http-parser/http_parser.c.o
+build/libraries/http-parser/http-parser.a
+build/sketch/font5x5.h
+build/sketch/HTMLPage.h
+build/sketch/test8x8reduced.h
