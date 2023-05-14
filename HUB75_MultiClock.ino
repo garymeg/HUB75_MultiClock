@@ -49,7 +49,7 @@ String HourString, MinuteString, SecondString, DayString, DateString, MonthStrin
 uint8_t SecondInt, MinuteInt, HourInt;
 uint8_t NewRTCm = 60;
 int Tz = 1; // Time Zone
-
+int oldDisplayMode;
 // OldSkoolCoder Addition
 WebServer server(80);
 String Player = "";
@@ -82,6 +82,7 @@ void setup()
     // Set WiFi to station mode and disconnect from an AP if it was Previously
     // connected
     WiFi.mode(WIFI_STA);
+    WiFi.setHostname("Pico_Clock");
     WiFi.begin(ssid, password);
 
     while (WiFi.status() != WL_CONNECTED)
@@ -183,13 +184,14 @@ void loop()
 
         if (newPoints != 0)
         {
-          // Generic BOT Command.
-          sendTwitchMessage("!addpoints " + Player + " " + newPoints);
+            newPoints += PlayerBet;
+            // Generic BOT Command.
+            sendTwitchMessage("!addpoints " + Player + " " + newPoints);
 
-          // OSK Bot Command.
-          //sendTwitchMessage("!addosk " + Player + " " + newPoints);
+            // OSK Bot Command.
+            // sendTwitchMessage("!addosk " + Player + " " + newPoints);
         }
-        displayMode = 0;
+        displayMode = oldDisplayMode;
         break;
     }
 

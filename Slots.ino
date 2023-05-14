@@ -81,11 +81,12 @@ uint16_t SlotsLoop(String Player, uint16_t Points, uint16_t  stake)
         spin(5, 1, false);
         display_amounts(Player, total, Bet);
         matrix.show();
+        delay(3000);
         firstRun = 1;
     }
         display_amounts(Player, total, Bet);
         matrix.show();
-        delay(300);
+        delay(1000);
 
         win = 0;
         randomSeed(millis());
@@ -163,7 +164,7 @@ uint16_t SlotsLoop(String Player, uint16_t Points, uint16_t  stake)
         delay(1000);
         } while (free_spinning == true);
         //leave game on screen for a few seconds
-        delay(10000);
+        delay(5000);
         firstRun = 0;
         //return Points;
         return win;

@@ -17,6 +17,7 @@ void handleChangeOfClock()
 
 void handleSlots()
 {
+  oldDisplayMode = displayMode;
   displayMode = 3;
   Player = server.arg("userName");
   std::transform(Player.begin(), Player.end(), Player.begin(), ::toupper);
@@ -31,6 +32,7 @@ void handleSlots()
   Serial.print("Bet: ");
   Serial.println(PlayerBet);
   handleRoot();
+  
 }
 
 void handleRoot()
