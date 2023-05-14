@@ -1,4 +1,4 @@
-build/.last-used
+build/*
 build/boot2.o
 build/build.options.json
 build/compile_commands.json
