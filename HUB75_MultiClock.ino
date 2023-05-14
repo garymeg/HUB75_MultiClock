@@ -197,6 +197,7 @@ void loop()
             sendTwitchMessage("Sorry..... "+ Player + " Please Play again");
         }
         displayMode = oldDisplayMode;
+        delay(2000);
         break;
     }
 
