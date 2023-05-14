@@ -187,6 +187,7 @@ void loop()
             newPoints += PlayerBet;
             // Generic BOT Command.
             sendTwitchMessage("!addpoints " + Player + " " + newPoints);
+            sendTwitchMessage("Well Done..... Please Play again");
 
             // OSK Bot Command.
             // sendTwitchMessage("!addosk " + Player + " " + newPoints);
