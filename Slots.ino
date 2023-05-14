@@ -164,7 +164,7 @@ uint16_t SlotsLoop(String Player, uint16_t Points, uint16_t  stake)
         delay(1000);
         } while (free_spinning == true);
         //leave game on screen for a few seconds
-        delay(5000);
+        delay(3000);
         firstRun = 0;
         //return Points;
         return win;
