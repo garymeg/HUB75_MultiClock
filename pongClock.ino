@@ -10,6 +10,7 @@ float ballVY = 0.5;
 int playerLoss = 0;
 int gameStopped = 0;
 int HourOld, MinuteOld, secondOld, DateInt;
+unsigned long lastTime = millis();
 
 void PongClock()
 {

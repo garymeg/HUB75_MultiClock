@@ -1,4 +1,4 @@
-#define pay_time() PAYTABLE[m + counter - 1] * Bet / 20
+#define pay_time() PAYTABLE[m + counter - 1] * ((Bet / 20)+1)
 
 const byte CH[] = {11, 11, 11, 10, 10, 10, 2, 2, 2, 2,
                    0, 0, 0, 0, 3, 3, 3, 3, 3, 4,
@@ -12,6 +12,7 @@ const byte CH[] = {11, 11, 11, 10, 10, 10, 2, 2, 2, 2,
 const byte CHlength = 85;
 byte wild_symbol = 10;
 byte scatter_symbol = 11;
+int total;
 
 const byte PAYLINES[20][5] = { // 21 = 2nd row 1st char
     {21, 22, 23, 24, 25},
@@ -35,22 +36,24 @@ const byte PAYLINES[20][5] = { // 21 = 2nd row 1st char
     {31, 22, 13, 14, 15},
     {11, 32, 13, 34, 15}};
 byte win_per_payline[20];
-const byte PAYTABLE[] = {0, 0, 20, 100, 250,  // Cocktail
-                         2, 0, 20, 100, 250,  // Aperol
-                         3, 0, 15, 75, 200,   // Drink
-                         4, 0, 15, 75, 200,   // Beer
-                         5, 0, 15, 75, 200,   // Orangina
-                         10, 5, 50, 250, 250, // 1000,// (wild) rocket
-                         6, 0, 5, 50, 100,    // Strawberry
-                         8, 0, 5, 50, 100,    // Aubergine
-                         1, 0, 5, 50, 100,    // Corn
-                         7, 0, 2, 15, 75,     // Räbe
-                         9, 0, 2, 15, 75,     // Radish
-                         11, 0, 0, 0, 0};     // (scatter) blue thing
+const byte PAYTABLE[] = {
+    1,  // 0, 20, 100, 250,  // Cocktail
+    2,  // 0, 20, 100, 250,  // Aperol
+    3,  // 0, 15, 75, 200,   // Drink
+    4,  // 0, 15, 75, 200,   // Beer
+    5,  // 0, 15, 75, 200,   // Orangina
+    10, // 5, 50, 250, 250, // 1000,// (wild) rocket
+    6,  // 0, 5, 50, 100,    // Strawberry
+    8,  // 0, 5, 50, 100,    // Aubergine
+    1,  // 0, 5, 50, 100,    // Corn
+    7,  // 0, 2, 15, 75,     // Räbe
+    9,  // 0, 2, 15, 75,     // Radish
+    11  //, 0, 0, 0, 0     // (scatter) blue thing
+};
 byte draw[3][5];
 long randNumber;
 int scatter = 0;
-volatile int total = 500; // Start money
+// volatile int total = 500; // Start money
 int win = 0;
 int free_spins = 0;
 bool free_spinning = false;
@@ -76,6 +79,11 @@ uint16_t SlotsLoop(String Player, uint16_t Points, uint16_t  stake)
 
     if (firstRun == 0)
     {
+        win = 0;
+        free_spins = 0;
+        free_spinning = false;
+        free_spin_win = 0;
+        byte wild_counter = 0;
         matrix.fillScreen(myBLACK);
         draw_red_lines();
         spin(5, 1, false);
@@ -315,7 +323,7 @@ void evaluate(int how_many)
         {
             if (counter > 2)
             {
-                for (int m = 0; m < 55; m += 5)
+                for (int m = 0; m < 12; m++)
                 {
                     if (first == PAYTABLE[m])
                     {

@@ -118,17 +118,26 @@ uint8_t clockPin = matrix_CLK;
 uint8_t latchPin = matrix_LAT;
 uint8_t oePin = matrix_OE;
 uint8_t scanMode = (M_HEIGHT == 64) ? -2 : -1;
-// standard colors
-uint16_t myRED = Color333(2, 0, 0);
-uint16_t myGREEN = Color333(0, 2, 0);
-uint16_t myBLUE = Color333(0, 0, 2);
-uint16_t myWHITE = Color333(2, 2, 2);
-uint16_t myYELLOW = Color333(2, 2, 0);
-uint16_t myCYAN = Color333(0, 2, 2);
-uint16_t myMAGENTA = Color333(2, 0, 2);
-uint16_t myShadow = Color333(1, 0, 2);
-uint16_t myROSE = Color333(2, 0, 1);
-uint16_t myBLACK = Color333(0, 0, 0);
+
+#if defined(USESDCARD)
+    if (!SD.begin(_CS)) {
+    Serial.println("initialization failed!");
+    return;
+  }
+  Serial.println("initialization done.");
+#endif
+
+  // standard colors
+  uint16_t myRED = Color333(2, 0, 0);
+  uint16_t myGREEN = Color333(0, 2, 0);
+  uint16_t myBLUE = Color333(0, 0, 2);
+  uint16_t myWHITE = Color333(2, 2, 2);
+  uint16_t myYELLOW = Color333(2, 2, 0);
+  uint16_t myCYAN = Color333(0, 2, 2);
+  uint16_t myMAGENTA = Color333(2, 0, 2);
+  uint16_t myShadow = Color333(1, 0, 2);
+  uint16_t myROSE = Color333(2, 0, 1);
+  uint16_t myBLACK = Color333(0, 0, 0);
 #define LED_BLACK 0
 
 #define LED_RED_VERYLOW (3 << 11)
@@ -165,11 +174,3 @@ uint16_t myBLACK = Color333(0, 0, 0);
 #define LED_WHITE_LOW (LED_RED_LOW + LED_GREEN_LOW + LED_BLUE_LOW)
 #define LED_WHITE_MEDIUM (LED_RED_MEDIUM + LED_GREEN_MEDIUM + LED_BLUE_MEDIUM)
 #define LED_WHITE_HIGH (LED_RED_HIGH + LED_GREEN_HIGH + LED_BLUE_HIGH)
-
-#if defined(USESDCARD)
-    if (!SD.begin(_CS)) {
-    Serial.println("initialization failed!");
-    return;
-  }
-  Serial.println("initialization done.");
-#endif
