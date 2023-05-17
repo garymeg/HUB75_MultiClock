@@ -21,6 +21,8 @@ void getNextMessage()
 
     int16_t x1, y1;
     uint16_t w, h;
+
+    matrix.setFont(&FreeSansBold18pt7b);                   // Use nice bitmap font
     matrix.getTextBounds(message, 0, 0, &x1, &y1, &w, &h); // How big is it?
     textMin = -w;                                          // All text is off left edge when it reaches this point
     textY = matrix.height() / 2 - (y1 + h / 2);            // Center text vertically

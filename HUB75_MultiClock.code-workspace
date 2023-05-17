@@ -7,6 +7,11 @@
 	"settings": {
 		"files.associations": {
 			"utility": "cpp"
-		}
+		},
+		//"cortex-debug.openocdPath": "C:/openocd/openocd.exe",
+		"cortex-debug.openocdPath": "D:/Documents/Arduino/PicoProbe/openocd/openocd.exe",
+		"cortex-debug.gdbPath": "arm-none-eabi-gdb.exe",
+		"arduino.analyzeOnOpen": false,
+		"arduino.analyzeOnSettingChange": false
 	}
 }

@@ -49,7 +49,7 @@ const char MAIN_page[] PROGMEM = R"=====(
                 <form action="/" method="POST">
                     <div class="form-group">
                         <label for="msg">Enter Message:</label>
-                        <input id="msg" type="text" placeholder="Message Here... max length 100 chars" maxlength="50" class="form-control">
+                        <input id="msg" type="text" placeholder="Message Here... max length 100 chars" maxlength="200" class="form-control">
                     <button class="btn btn-primary" onclick="myFunctionMessage()">Send Message</button>
                 </form>
             </div>

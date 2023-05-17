@@ -1,0 +1,27 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    {
+        "name": "Pico-Probe",
+        "cwd": "${workspaceFolder}",
+        "executable": "${workspaceFolder}/build/${workspaceFolderBasename}.ino.elf",
+        "request": "launch",
+        "type": "cortex-debug",
+        "servertype": "openocd",
+        "device": "Pico2040",
+        "runToEntryPoint": "main",
+        "configFiles": [
+            "interface/picoprobe.cfg",
+            "target/rp2040.cfg"
+            ],
+        "searchDir": ["C:/openocd/tcl/*"],
+        "searchDir": ["D:/Documents/Arduino/PicoProbe/openocd/tcl"],
+        
+        "svdFile": "C:/pico/pico-sdk/src/rp2040/hardware_regs/rp2040.svd"
+    }
+   
+    ]
+}

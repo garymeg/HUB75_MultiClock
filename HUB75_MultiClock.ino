@@ -86,7 +86,7 @@ void setup()
     Serial.begin(115200);
     randomSeed(analogRead(A3));
     // from OSK
-    myMessages.push_back(" ");
+    //myMessages.push_back(" ");
     myMessages.push_back("Say Hello Raspberry Pi PICO :)");
     // Initialize matrix...
     ProtomatterStatus status = matrix.begin();
