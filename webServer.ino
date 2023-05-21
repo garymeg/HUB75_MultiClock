@@ -22,13 +22,14 @@ void handleMessage()
   changeState(stat_NeedToChange);
   Serial.print("Sending Message: ");
   Serial.println(scrollMessage);
+  displayMode = 0;
   handleRoot();
 }
 
 void handleSlots()
 {
   oldDisplayMode = displayMode;
-  displayMode = 3;
+  displayMode = 5;
   Player = server.arg("userName");
   std::transform(Player.begin(), Player.end(), Player.begin(), ::toupper);
   PlayerPoints = server.arg("userPoints").toInt();

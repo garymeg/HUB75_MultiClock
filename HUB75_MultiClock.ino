@@ -21,9 +21,6 @@
 // Set Timezone
 #define MYTIMEZONE "Europe/London"
 
-// #define show() matrix.show()
-#define WIDTH 64
-#define HEIGHT 64
 
 // chat bot settings
 #define IRC_SERVER "irc.chat.twitch.tv"
@@ -33,15 +30,19 @@
 #define stat_NeedToChange 0
 #define stat_MaxNumberOfStates 4
 #define stat_ScrollingText 1
+
+// create correct matrix.width() & matrix.height()
+#define WIDTH 64
+#define HEIGHT 32
 //
 Adafruit_Protomatter matrix(
-    64,                        // Width of panels
+    WIDTH,                        // Width of panels
     4,                         // Bitdepth
     1, rgbPins,                // , RGB pins
     4, addrPins,               // No of address pins, address pins
     clockPin, latchPin, oePin, // clock, latch output enable pins
     true,                      // Dubble buffering
-    -2);                       // number of panels high (- if alternate panel upside down (zig-zag scanning))
+    (HEIGHT==64? -2:1));       // number of panels high (- if alternate panel upside down (zig-zag scanning))
 Timezone myTZ;
 TetrisMatrixDraw tetris(matrix);  // Main clock
 TetrisMatrixDraw tetris2(matrix); // The "M" of AM/PM
@@ -55,6 +56,9 @@ WebServer server(80);
 WiFiClient wiFiClient;
 IRCClient client(IRC_SERVER, IRC_PORT, wiFiClient);
 std::vector<String> myMessages;
+IPAddress ip(192, 168, 1, 99); // 30 to 250
+IPAddress gateway(192, 168, 1, 254);
+IPAddress subnet(255, 255, 255, 0);
 // Prototype functions
 void drawTXT(int16_t x, int16_t y, String text, int16_t size, uint16_t color);
 
@@ -111,6 +115,7 @@ void setup()
     // Set WiFi to station mode and disconnect from an AP if it was Previously
     // connected
     WiFi.mode(WIFI_STA);
+    //WiFi.config(ip);
     WiFi.setHostname("Pico_Clock");
     WiFi.begin(ssid, password);
     int i = 0;
@@ -130,7 +135,7 @@ void setup()
     Serial.println(WiFi.localIP());
     matrix.fillScreen(myBLACK);
     drawTXT(0, 0, "WiFi connected", 14, myYELLOW);
-    String IPadd = "IP addrerss :- ";
+    String IPadd = "IP address :- ";
     IPadd += WiFi.localIP().toString().c_str();
 
     myMessages.push_back(IPadd);
@@ -201,7 +206,9 @@ void loop()
         performTextScrolling();
         break;
     case 2:
-        AnalogClock();
+
+        AnalogClock(-15);
+
         break;
     case 3:
         PongClock();

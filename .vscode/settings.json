@@ -2,9 +2,6 @@
     "files.associations": {
         "ios": "cpp"
     },
-    //"cortex-debug.openocdPath": "C:/openocd/openocd.exe",
-    "cortex-debug.openocdPath": "D:/Documents/Arduino/PicoProbe/openocd/openocd.exe",
-    //"cortex-debug.openocdPath": "C:/Users/gmeth/AppData/Local/Arduino15/packages/rp2040/tools/pqt-openocd/1.5.0-b-c7bab52/bin/openocd.exe",
-    //"cortex-debug.gdbpath": "C:/Program Files (x86)/GNU Arm Embedded Toolchain/10 2021.10/bin/arm-none-eabi-gdb.exe"
-    "cortex-debug.gdbPath": "arm-none-eabi-gdb.exe"
+"cortex-debug.openocdPath": "D:/Documents/Arduino/PicoProbe/openocd/openocd.exe",
+"cortex-debug.gdbPath": "arm-none-eabi-gdb.exe",
 }

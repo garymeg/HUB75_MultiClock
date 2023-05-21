@@ -1,4 +1,4 @@
-String timeStr = "00";
+static String timeStr = "00";
 float ballX = 31;
 float ballY = (random(16)) + 8;
 float leftPlayerTargetY = ballY;
@@ -11,9 +11,10 @@ int playerLoss = 0;
 int gameStopped = 0;
 int HourOld, MinuteOld, secondOld, DateInt;
 unsigned long lastTime = millis();
-
 void PongClock()
 {
+
+
     {
         if (millis() > lastTime + 20)
         {
