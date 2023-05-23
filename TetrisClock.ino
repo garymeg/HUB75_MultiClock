@@ -1,3 +1,9 @@
+TetrisMatrixDraw tetris(matrix);  // Main clock
+TetrisMatrixDraw tetris2(matrix); // The "M" of AM/PM
+TetrisMatrixDraw tetris3(matrix); // The "P" or "A" of AM/PM
+TetrisMatrixDraw tetrisDate0(matrix);
+TetrisMatrixDraw tetrisDate1(matrix);
+TetrisMatrixDraw tetrisDate2(matrix);
 bool twelveHourFormat = false;
 bool forceRefresh = false;
 bool showColon = true;

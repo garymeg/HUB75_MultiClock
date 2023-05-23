@@ -33,7 +33,7 @@
 
 // create correct matrix.width() & matrix.height()
 #define WIDTH 64
-#define HEIGHT 32
+#define HEIGHT 64
 //
 Adafruit_Protomatter matrix(
     WIDTH,                        // Width of panels
@@ -60,7 +60,7 @@ IPAddress ip(192, 168, 1, 99); // 30 to 250
 IPAddress gateway(192, 168, 1, 254);
 IPAddress subnet(255, 255, 255, 0);
 // Prototype functions
-void drawTXT(int16_t x, int16_t y, String text, int16_t size, uint16_t color);
+//void drawTXT(int16_t x, int16_t y, String text, int16_t size, uint16_t color);
 
 // Init Local variables used in setup + Loop
 String scrollMessage = "HELLO STREAMERS";
@@ -106,8 +106,9 @@ void setup()
     matrix.setTextSize(0);
     matrix.setTextColor(myYELLOW);
     matrix.fillScreen(myBLACK);
-    drawTXT(0, 0, "Connecting ", 18, myYELLOW);
-    drawTXT(0, 7, "To WiFi ", 8, myYELLOW);
+    matrix.setCursor(0, 0);
+    matrin.println("Connecting ");
+    matrix.println("To WiFi ");
     // Attempt to connect to Wifi network:
     Serial.print("Connecting Wifi: ");
     Serial.println(ssid);
@@ -134,12 +135,13 @@ void setup()
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
     matrix.fillScreen(myBLACK);
-    drawTXT(0, 0, "WiFi connected", 14, myYELLOW);
+    matrix.setCursor(0, 0);
+    matrix.println("WiFi connected");
     String IPadd = "IP address :- ";
     IPadd += WiFi.localIP().toString().c_str();
 
     myMessages.push_back(IPadd);
-    drawTXT(0, 14, IPadd, sizeof(IPadd), myYELLOW);
+    matrix.println(IPadd);
     matrix.show();
     delay(2000);
     // setup ezTime
@@ -240,25 +242,6 @@ void loop()
     server.handleClient();
 
     twitchLoop();
-}
-// Input a value 0 to 24 to get a color value.
-// The colours are a transition r - g - b - back to r.
-uint16_t Wheel(byte WheelPos)
-{
-    if (WheelPos < 8)
-    {
-        return matrix.Color444(7 - WheelPos, WheelPos, 0);
-    }
-    else if (WheelPos < 16)
-    {
-        WheelPos -= 8;
-        return matrix.Color444(0, 7 - WheelPos, WheelPos);
-    }
-    else
-    {
-        WheelPos -= 16;
-        return matrix.Color444(WheelPos, 0, 7 - WheelPos);
-    }
 }
 
 void changeState(int8_t newState)
