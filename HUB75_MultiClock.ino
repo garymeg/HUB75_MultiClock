@@ -35,7 +35,13 @@
 #define stat_ScrollingText 1
 
 // create correct matrix.width() & matrix.height()
+<<<<<<< HEAD
 
+=======
+#define WIDTH 64
+#define HEIGHT 64
+//
+>>>>>>> 517684a804d3ee06f83f58eb69e4cc2869ce1117
 Adafruit_Protomatter matrix(
     WIDTH,                     // Width of panels
     4,                         // Bitdepth
@@ -115,7 +121,12 @@ void setup()
     matrix.setTextColor(myYELLOW);
     matrix.fillScreen(myBLACK);
     matrix.setCursor(0, 0);
+<<<<<<< HEAD
 
+=======
+    matrin.println("Connecting ");
+    matrix.println("To WiFi ");
+>>>>>>> 517684a804d3ee06f83f58eb69e4cc2869ce1117
     // Attempt to connect to Wifi network:
     matrix.println("Connecting ");
     matrix.println("To WiFi ");
@@ -147,6 +158,7 @@ void setup()
     Serial.println(WiFi.localIP());
     matrix.fillScreen(myBLACK);
     matrix.setCursor(0, 0);
+<<<<<<< HEAD
     matrix.println("WiFi\n connected");
     String IPadd = "IP address :- ";
     IPadd += WiFi.localIP().toString().c_str();
@@ -154,6 +166,15 @@ void setup()
     //myMessages.push_back(IPadd);
     //matrix.println(IPadd);
     //matrix.show();
+=======
+    matrix.println("WiFi connected");
+    String IPadd = "IP address :- ";
+    IPadd += WiFi.localIP().toString().c_str();
+
+    myMessages.push_back(IPadd);
+    matrix.println(IPadd);
+    matrix.show();
+>>>>>>> 517684a804d3ee06f83f58eb69e4cc2869ce1117
     delay(2000);
     // setup ezTime
     waitForSync();
@@ -253,12 +274,15 @@ void loop()
     server.handleClient();
     twitchLoop();
 }
+<<<<<<< HEAD
 void changeClock(){
      if(millis() > ClockLastChange+ClockChangeTime){
           displayMode += 1;
           if (displayMode >4) displayMode =2;
           ClockLastChange = millis();
      }
+=======
+>>>>>>> 517684a804d3ee06f83f58eb69e4cc2869ce1117
 
 }
 void changeState(int8_t newState)
