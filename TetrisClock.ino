@@ -1,3 +1,4 @@
+
 bool twelveHourFormat = false;
 bool forceRefresh = false;
 bool showColon = true;

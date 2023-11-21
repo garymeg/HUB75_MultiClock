@@ -18,6 +18,9 @@
 #include "HTMLPage.h"
 #include <IRCClient.h>
 
+
+#define WIDTH 64
+#define HEIGHT 64
 // Set Timezone
 #define MYTIMEZONE "Europe/London"
 
@@ -32,17 +35,16 @@
 #define stat_ScrollingText 1
 
 // create correct matrix.width() & matrix.height()
-#define WIDTH 64
-#define HEIGHT 32
-//
+
 Adafruit_Protomatter matrix(
-    WIDTH,                        // Width of panels
+    WIDTH,                     // Width of panels
     4,                         // Bitdepth
-    1, rgbPins,                // , RGB pins
-    4, addrPins,               // No of address pins, address pins
+    1, rgbPins,                // Number of matrix, RGB pins
+    5, addrPins,               // No of address pins, address pins
     clockPin, latchPin, oePin, // clock, latch output enable pins
     true,                      // Dubble buffering
-    (HEIGHT==64? -2:1));       // number of panels high (- if alternate panel upside down (zig-zag scanning))
+    //(HEIGHT==64? -2:1));       // number of panels high (- if alternate panel upside down (zig-zag scanning))
+    1);
 Timezone myTZ;
 TetrisMatrixDraw tetris(matrix);  // Main clock
 TetrisMatrixDraw tetris2(matrix); // The "M" of AM/PM
@@ -60,24 +62,28 @@ IPAddress ip(192, 168, 1, 99); // 30 to 250
 IPAddress gateway(192, 168, 1, 254);
 IPAddress subnet(255, 255, 255, 0);
 // Prototype functions
-void drawTXT(int16_t x, int16_t y, String text, int16_t size, uint16_t color);
+//void drawTXT(int16_t x, int16_t y, String text, int16_t size, uint16_t color);
 
 // Init Local variables used in setup + Loop
 String scrollMessage = "HELLO STREAMERS";
 String HourString, MinuteString, SecondString, DayString, DateString, MonthString;
 uint8_t SecondInt, MinuteInt, HourInt;
-int displayMode = 0;
+uint8_t displayMode = 0;
 String ircChannel = "";
 String Player = "";
 String lastDisplayedTime = ""; // had to leave in here as tetrus needs to redraw full clock on first run
 int oldDisplayMode;
-
+uint8_t width = WIDTH;
+uint8_t height = HEIGHT;
+unsigned long ClockChangeTime = (1000*60)*5;
+unsigned long ClockLastChange = ClockChangeTime;
+//
 // OldSkoolCoder Addition
-int PlayerPoints = 0;
-uint16_t PlayerBet = 0;
+uint32_t PlayerPoints = 0;
+uint32_t PlayerBet = 0;
 int8_t state = 0;
 int8_t prevState = 0;
-
+const char* HostName;
 // Previous variables that have been changed or not used
 
 // int Tz = 1; // Time Zone
@@ -89,8 +95,10 @@ void setup()
 {
     Serial.begin(115200);
     randomSeed(analogRead(A3));
+    String Host = "PicoClock_" + String(width) + "x" + String(height);
+    HostName = Host.c_str();
     // from OSK
-    //myMessages.push_back(" ");
+    // myMessages.push_back(" ");
     myMessages.push_back("Say Hello Raspberry Pi PICO :)");
     // Initialize matrix...
     ProtomatterStatus status = matrix.begin();
@@ -106,17 +114,19 @@ void setup()
     matrix.setTextSize(0);
     matrix.setTextColor(myYELLOW);
     matrix.fillScreen(myBLACK);
-    drawTXT(0, 0, "Connecting ", 18, myYELLOW);
-    drawTXT(0, 7, "To WiFi ", 8, myYELLOW);
+    matrix.setCursor(0, 0);
+
     // Attempt to connect to Wifi network:
+    matrix.println("Connecting ");
+    matrix.println("To WiFi ");
     Serial.print("Connecting Wifi: ");
     Serial.println(ssid);
     matrix.show();
-    // Set WiFi to station mode and disconnect from an AP if it was Previously
-    // connected
+     
+    // Set WiFi to station mode and disconnect from an AP if it was Previously connected
     WiFi.mode(WIFI_STA);
     //WiFi.config(ip);
-    WiFi.setHostname("Pico_Clock");
+    WiFi.setHostname(HostName);
     WiFi.begin(ssid, password);
     int i = 0;
 
@@ -127,20 +137,23 @@ void setup()
         matrix.show();
         delay(500);
         i++;
+        if(i > 64)
+            i = 0;
     }
 
     Serial.println("");
-    Serial.println("WiFi connected");
+    Serial.println("WiFi\n connected");
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
     matrix.fillScreen(myBLACK);
-    drawTXT(0, 0, "WiFi connected", 14, myYELLOW);
+    matrix.setCursor(0, 0);
+    matrix.println("WiFi\n connected");
     String IPadd = "IP address :- ";
     IPadd += WiFi.localIP().toString().c_str();
 
-    myMessages.push_back(IPadd);
-    drawTXT(0, 14, IPadd, sizeof(IPadd), myYELLOW);
-    matrix.show();
+    //myMessages.push_back(IPadd);
+    //matrix.println(IPadd);
+    //matrix.show();
     delay(2000);
     // setup ezTime
     waitForSync();
@@ -232,35 +245,22 @@ void loop()
             sendTwitchMessage("Sorry..... " + Player + " Please Play again");
         }
         displayMode = oldDisplayMode;
-        delay(2000);
+        
         break;
     
     
     }
     server.handleClient();
-
     twitchLoop();
 }
-// Input a value 0 to 24 to get a color value.
-// The colours are a transition r - g - b - back to r.
-uint16_t Wheel(byte WheelPos)
-{
-    if (WheelPos < 8)
-    {
-        return matrix.Color444(7 - WheelPos, WheelPos, 0);
-    }
-    else if (WheelPos < 16)
-    {
-        WheelPos -= 8;
-        return matrix.Color444(0, 7 - WheelPos, WheelPos);
-    }
-    else
-    {
-        WheelPos -= 16;
-        return matrix.Color444(WheelPos, 0, 7 - WheelPos);
-    }
-}
+void changeClock(){
+     if(millis() > ClockLastChange+ClockChangeTime){
+          displayMode += 1;
+          if (displayMode >4) displayMode =2;
+          ClockLastChange = millis();
+     }
 
+}
 void changeState(int8_t newState)
 {
     prevState = displayMode;

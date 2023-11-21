@@ -60,3 +60,22 @@ void performTextScrolling()
         }
     }
 }
+// Input a value 0 to 24 to get a color value.
+// The colours are a transition r - g - b - back to r.
+uint16_t Wheel(byte WheelPos)
+{
+    if (WheelPos < 8)
+    {
+        return matrix.Color444(7 - WheelPos, WheelPos, 0);
+    }
+    else if (WheelPos < 16)
+    {
+        WheelPos -= 8;
+        return matrix.Color444(0, 7 - WheelPos, WheelPos);
+    }
+    else
+    {
+        WheelPos -= 16;
+        return matrix.Color444(WheelPos, 0, 7 - WheelPos);
+    }
+}

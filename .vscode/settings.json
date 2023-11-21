@@ -1,7 +1,8 @@
 {
-    "files.associations": {
-        "ios": "cpp"
-    },
-"cortex-debug.openocdPath": "D:/Documents/Arduino/PicoProbe/openocd/openocd.exe",
-"cortex-debug.gdbPath": "arm-none-eabi-gdb.exe",
+  "files.associations": {
+    "ios": "cpp"
+  },
+  "cortex-debug.openocdPath": "D:/Documents/Arduino/PicoProbe/openocd/openocd.exe",
+  "cortex-debug.gdbPath": "arm-none-eabi-gdb.exe",
+  "editor.formatOnPaste": true
 }

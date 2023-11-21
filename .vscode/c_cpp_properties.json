@@ -508,7 +508,14 @@
                 "__ATOMIC_ACQ_REL=4",
                 "__ATOMIC_RELEASE=3",
                 "USBCON"
-            ]
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}",
+                    "D:/Documents/Arduino/Libraries",
+                    "C:/Users/gmeth/AppData/Local/Arduino15/Packages"
+                ]
+            }
         }
     ]
 }

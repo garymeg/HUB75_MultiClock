@@ -23,7 +23,8 @@
 #define matrix_A 2
 #define matrix_B 3
 #define matrix_C 4
-#define matrix_D 5
+#define matrix_D 5  //5
+#define matrix_E 15
 
 #define matrix_R1 6
 #define matrix_R2 9
@@ -113,7 +114,7 @@ uint16_t Color333(uint8_t r, uint8_t g, uint8_t b)
 // #define bitDepth 6
 
 uint8_t rgbPins[] = {matrix_R1, matrix_G1, matrix_B1, matrix_R2, matrix_G2, matrix_B2};
-uint8_t addrPins[] = {matrix_A, matrix_B, matrix_C, matrix_D};
+uint8_t addrPins[] = {matrix_A, matrix_B, matrix_C, matrix_D, matrix_E};
 uint8_t clockPin = matrix_CLK;
 uint8_t latchPin = matrix_LAT;
 uint8_t oePin = matrix_OE;

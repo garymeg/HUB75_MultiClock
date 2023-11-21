@@ -14,6 +14,8 @@ int w = matrix.width();
 byte CENTRE_X; // Set clock center x
 byte CENTRE_Y; // Set clock center y
 uint8_t NewRTCm = 60;
+uint8_t NewRTCs = 60;
+uint8_t NewRTCh = 12;
 void AnalogClock(int oset)
 {
     if (matrix.height()==64)
@@ -23,21 +25,30 @@ void AnalogClock(int oset)
     CENTRE_X += oset;
     matrix.clear();
     readtime();
-    co0 = random(0, 91);
-    if (NewRTCm != MinuteInt)
+    if (NewRTCh != HourInt)
     {
         co1 = random(0, 91);
+        NewRTCh = HourInt;
+    } // co0 = random(0, 91);
+    if (NewRTCm != MinuteInt)
+    {
+        co0 = random(0, 91);
         NewRTCm = MinuteInt;
     }
+    // if (NewRTCs != SecondInt)
+    // {
+    //     co0 = random(0, 91);
+    //     NewRTCs = SecondInt;
+    // }
     drawclockBDot();
-    matrix.show();
+    //matrix.show();
     drawclockDot();
-    matrix.show();
+    //matrix.show();
     drawclockNB();
-    matrix.show();
+    //matrix.show();
     drawtime();
     matrix.show();
-    delay(1000);
+    //delay(1000);
 }
 
 void drawclockNB() // draw clock numbers
