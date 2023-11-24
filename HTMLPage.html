@@ -59,7 +59,7 @@
 function myFunctionClock() {
   var n = document.getElementById("clocks");
   var request = new XMLHttpRequest();
-  var strLine = "myClock?ClockMode=" + n.value;
+  var strLine = "myClock?ClockMode=" + n.value; 
   request.open("GET", strLine, false);
   request.send(null);
 }
@@ -74,6 +74,7 @@ function myFunctionSlots() {
   request.send(null);
 }
 function myFunctionMessage() {
+    
   var messageTXT = document.getElementById("msg");
   var request = new XMLHttpRequest();
   var strLine = "myMessage?" + messageTXT.value;

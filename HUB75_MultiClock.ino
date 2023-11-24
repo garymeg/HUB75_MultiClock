@@ -35,22 +35,15 @@
 #define stat_ScrollingText 1
 
 // create correct matrix.width() & matrix.height()
-<<<<<<< HEAD
-
-=======
-#define WIDTH 64
-#define HEIGHT 64
-//
->>>>>>> 517684a804d3ee06f83f58eb69e4cc2869ce1117
 Adafruit_Protomatter matrix(
     WIDTH,                     // Width of panels
     4,                         // Bitdepth
     1, rgbPins,                // Number of matrix, RGB pins
-    5, addrPins,               // No of address pins, address pins
+    4, addrPins,               // No of address pins, address pins
     clockPin, latchPin, oePin, // clock, latch output enable pins
     true,                      // Dubble buffering
     //(HEIGHT==64? -2:1));       // number of panels high (- if alternate panel upside down (zig-zag scanning))
-    1);
+    -2);
 Timezone myTZ;
 TetrisMatrixDraw tetris(matrix);  // Main clock
 TetrisMatrixDraw tetris2(matrix); // The "M" of AM/PM
@@ -121,12 +114,6 @@ void setup()
     matrix.setTextColor(myYELLOW);
     matrix.fillScreen(myBLACK);
     matrix.setCursor(0, 0);
-<<<<<<< HEAD
-
-=======
-    matrin.println("Connecting ");
-    matrix.println("To WiFi ");
->>>>>>> 517684a804d3ee06f83f58eb69e4cc2869ce1117
     // Attempt to connect to Wifi network:
     matrix.println("Connecting ");
     matrix.println("To WiFi ");
